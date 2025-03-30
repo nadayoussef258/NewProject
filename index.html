@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Masna3ko</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+
+    <!-- Font Awesome for icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+        }
+
+       /* navbar */
+        .navbar-custom {
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .search-container {
+            position: relative;
+        }
+
+        .search-container .form-control {
+            padding-right: 100px;
+        }
+
+        .search-container .dropdown {
+            position: absolute;
+            top: 50%;
+            right: 80px;
+            transform: translateY(-50%);
+        }
+
+        .search-container .btn-search {
+            position: absolute;
+            top: 50%;
+            right: 0;
+            transform: translateY(-50%);
+            background-color: #ff4757;
+            color: white;
+            border: none;
+        }
+/* Hero Section */
+        .hero-section {
+            background-image: url('assets/bg-1.jpg');
+            /* background: linear-gradient(to right, #f5f7fa, #c3cfe2); */
+            padding: 50px 0;
+            position: relative;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-devices {
+            position: relative;
+            z-index: 1;
+        }
+
+        .categories-sidebar {
+            background-color: white;
+            border: 1px solid #e0e0e0;
+            padding: 15px;
+        }
+
+        .categories-sidebar .nav-link {
+            color: #333;
+            padding: 8px 15px;
+        }
+
+        .categories-sidebar .nav-link:hover {
+            background-color: #f8f9fa;
+        }
+
+        .start-shopping-btn {
+            background-color: #ff4757;
+            color: white;
+            border: none;
+        }
+
+        .start-shopping-btn:hover {
+            background-color: #ff6b81;
+        }
+
+
+        .sale-banner {
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .sale-banner-light {
+            background-color: #f5f5f5;
+        }
+
+        .sale-banner-dark {
+            background-color: #333;
+            color: white;
+        }
+
+        .sale-banner img {
+            max-height: 200px;
+        }
+
+        .product-tabs {
+            margin-bottom: 20px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .product-tabs .nav-link {
+            color: #666;
+            font-weight: 500;
+        }
+
+        .product-tabs .nav-link.active {
+            color: #ff4757;
+            border-bottom: 2px solid #ff4757;
+        }
+
+        .product-card {
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            margin-bottom: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-card .sale-tag {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #ff4757;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        .product-card img {
+            max-height: 200px;
+            object-fit: contain;
+        }
+
+        .product-price {
+            color: #666;
+            text-decoration: line-through;
+            margin-right: 10px;
+        }
+
+        .product-sale-price {
+            color: #ff4757;
+            font-weight: bold;
+        }
+
+        /* New Brands Section Styles */
+        .new-brands-section {
+            background-color: #f8f9fa;
+            padding: 50px 0;
+        }
+
+        .new-brands-content {
+            background-color: black;
+            color: white;
+            padding: 40px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .new-brands-image {
+            background-color: #030303;
+            height: 493px;
+            position: relative;
+        }
+
+        .new-brands-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+      
+
+        .shop-now-btn {
+            background-color: #666;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin-top: 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        .shop-now-btn:hover {
+            background-color: #888;
+        }
+
+        /* Featured Products Section Styles */
+        .featured-products {
+            padding: 50px 0;
+            background-color: #f8f9fa;
+        }
+
+        .featured-products-title {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .featured-products-title h2 {
+            font-size: 2.5rem;
+            font-weight: 600;
+        }
+
+        .featured-products-title hr {
+            width: 100px;
+            margin: 10px auto;
+            border: 2px solid #ff4757;
+        }
+
+        .featured-product-slider {
+            position: relative;
+        }
+
+        .featured-product-card {
+            text-align: center;
+            border: 1px solid #e0e0e0;
+            padding: 20px;
+            margin: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .featured-product-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .featured-product-card img {
+            max-height: 200px;
+            object-fit: contain;
+            margin-bottom: 15px;
+        }
+
+        .sale-badge {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            background-color: #ff4757;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        .product-price-original {
+            text-decoration: line-through;
+            color: #888;
+            margin-right: 10px;
+        }
+
+        .product-price-sale {
+            color: #ff4757;
+            font-weight: bold;
+        }
+
+        .featured-product-card .btn {
+            margin-top: 15px;
+            background-color: #ff4757;
+            color: white;
+            border: none;
+        }
+
+        .featured-product-card .btn:hover {
+            background-color: #ff6b81;
+        }
+
+        .slider-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .slider-nav .btn {
+            background-color: rgba(0, 0, 0, 0.2);
+            color: white;
+        }
+
+        .product-pagination {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .product-pagination .dot {
+            height: 10px;
+            width: 10px;
+            background-color: #bbb;
+            border-radius: 50%;
+            display: inline-block;
+            margin: 0 5px;
+        }
+
+        .product-pagination .dot.active {
+            background-color: #ff4757;
+        }
+
+        /* New Sections Styles */
+        .marketing-banners {
+            padding: 30px 0;
+            background-color: #f8f9fa;
+        }
+
+        .marketing-banner {
+            background-color: #f1f2f3;
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+        }
+
+        .marketing-banner.dark {
+            background-color: #333;
+            color: white;
+        }
+
+        .marketing-banner img {
+            max-height: 150px;
+            margin-right: 20px;
+        }
+
+        .marketing-banner-content {
+            flex-grow: 1;
+        }
+
+        .shop-now-btn {
+            background-color: #ff4757;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+        }
+
+        .store-features {
+            padding: 50px 0;
+            text-align: center;
+        }
+
+        .store-feature-item {
+            padding: 20px;
+        }
+
+        .store-feature-item i {
+            font-size: 3rem;
+            color: #ff4757;
+            margin-bottom: 15px;
+        }
+
+        .product-lists {
+            padding: 50px 0;
+            background-color: #f8f9fa;
+        }
+
+        .product-list-section {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .product-list-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 10px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .product-list-item img {
+            max-width: 80px;
+            margin-right: 15px;
+        }
+
+        .product-list-item .prices {
+            display: flex;
+            align-items: center;
+        }
+
+        .product-list-item .original-price {
+            text-decoration: line-through;
+            color: #888;
+            margin-right: 10px;
+        }
+
+        .product-list-item .sale-price {
+            color: #ff4757;
+            font-weight: bold;
+        }
+
+        .product-sidebar {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+
+
+        /* Footer Styles */
+        footer a {
+            color: #ffffff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: #ff4757;
+        }
+
+        footer h6 {
+            color: white;
+            margin-bottom: 15px;
+        }
+
+        footer hr {
+            border-color: #f7eeee;
+        }
+
+        .footerOne {
+            background-color: rgb(231, 231, 231);
+        }
+    </style>
+</head>
+
+<body>
+ 
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light navbar-custom">
+        <div class="container">
+            <!-- Logo -->
+            <a class="navbar-brand" href="#">
+                <img src="assets/logo.png" alt="Envo One Logo" style="width: 65px;">
+            </a>
+
+            <!-- Navigation Links -->
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item ">
+                        <a class="nav-link " href="index.html">HOME</a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link " href="factories.html">Factories </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Categories.html">Categories </a>
+                    </li>
+
+                    <li class="nav-item ">
+                        <a class="nav-link" href="Products.html">Products </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-danger" href="Blogs.html">Blogs</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-danger" href="AboutUs.html">Contact Us</a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Right Icons -->
+            <div class="navbar-nav flex-row">
+                <div class="search-container">
+                    
+                    <form class="d-flex ">
+                        <input class="form-control me-2" type="search" placeholder="Search products..."
+                            aria-label="Search">
+
+                        <button class="btn btn-search" type="submit"><i class="fas fa-search"></i></button>
+                    </form>
+                </div>
+<!-- 
+                <div class="nav-item me-3">
+                    <a href="#" class="nav-link"><i class="far fa-heart"></i></a>
+                </div> -->
+                <div class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="badge bg-danger">0</span>
+                        $0.00
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="hero-section">
+        <div class="container">
+            <div class="row">
+                <!-- Categories Sidebar -->
+                <div class="col-md-2 categories-sidebar">
+                    <div class="nav flex-column">
+                        <a class="nav-link" href="#"><i class="fas fa-tag me-2"></i> Summer Sale</a>
+                        <a class="nav-link" href="#"><i class="fas fa-box me-2"></i> New Products</a>
+                        <!-- <a class="nav-link" href="#"><i class="fas fa-dumbbell me-2"></i> Fitness Accessories</a> -->
+                        <a class="nav-link" href="#"><i class="fas fa-percent me-2"></i> On Sale - 50% Off</a>
+                        <a class="nav-link" href="#"><i class="fas fa-puzzle-piece me-2"></i> Categories</a>
+                        <a class="nav-link" href="#"><i class="fas fa-shoe-prints me-2"></i> Factories</a>
+                        <a class="nav-link" href="#"><i class="fas fa-snowflake me-2"></i> Blogs </a>
+                        <a class="nav-link" href="#"><i class="fas fa-shopping-bag me-2"></i> Contact US</a>
+                        <a class="nav-link" href="#"><i class="fas fa-mountain me-2"></i> Featured Products</a>
+                    </div>
+                </div>
+
+                <!-- Hero Content -->
+                <div class="col-md-10">
+                    <div class="row">
+                        <div class="col-md-6 hero-content">
+                            <p class="text-white">WELCOME TO OUR COMPANY</p>
+                            <h1 class="display-4 text-white">BIG SEASON SALE</h1>
+                            <button class="btn start-shopping-btn btn-lg mt-3">START SHOPPING</button>
+                        </div>
+                      
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Sale Banners Section -->
+    <div class="container mt-4">
+        <div class="featured-products-title">
+            <h2>Featured Factories</h2>
+            <hr>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="sale-banner sale-banner-light">
+                    <div>
+                        <h4>Childern's Furniture</h4>
+                        <!-- <h3>1 Factory</h3> -->
+                        <a href="#" class="btn btn-secondary mt-3">View</a>
+                    </div>
+                    <img src="/assets/Childern'sFurniture.jpg" alt="Drone" class="img-fluid">
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="sale-banner sale-banner-dark">
+                    <div>
+                        <h4>Classic Furniture</h4>
+                        <!-- <h3>1 Factory</h3> -->
+                        <a href="#" class="btn btn-light mt-3">VIEW </a>
+                    </div>
+                    <img src="/assets/ClassicFurniture.jpg" alt="VR Headset" class="img-fluid">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="sale-banner sale-banner-dark">
+                    <div>
+                        <h4>Commercial Furniture</h4>
+                        <!-- <h3>2 Factories</h3> -->
+                        <a href="#" class="btn btn-light mt-3">VIEW </a>
+                    </div>
+                    <img src="/assets/CommercialFurniture.jpg" alt="VR Headset" class="img-fluid">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="sale-banner sale-banner-light">
+                    <div>
+                        <h4>Luxury Funiture</h4>
+                        <!-- <h3>2 Factories</h3> -->
+                        <a href="#" class="btn btn-light mt-3">VIEW </a>
+                    </div>
+                    <img src="/assets/LuxuryFuniture.jpg" alt="VR Headset" class="img-fluid">
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="sale-banner sale-banner-light">
+                    <div>
+                        <h4>Upholstery</h4>
+                        <!-- <h3>1 Factory</h3> -->
+                        <a href="#" class="btn btn-light mt-3">VIEW </a>
+                    </div>
+                    <img src="/assets/Upholstery.jpg" alt="VR Headset" class="img-fluid">
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="sale-banner sale-banner-dark">
+                    <div>
+                        <h4>Glass Furniture</h4>
+                        <!-- <h3>1 Factory</h3> -->
+                        <a href="#" class="btn btn-light mt-3">VIEW </a>
+                    </div>
+                    <img src="/assets/GlassFurniture.jpg" alt="VR Headset" class="img-fluid">
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+    <!-- Product Tabs and Listings -->
+    <div class="container mt-4">
+        <div class="product-tabs">
+            <ul class="nav nav-tabs justify-content-center">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#recent" data-bs-toggle="tab">RECENT</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#featured" data-bs-toggle="tab">FEATURED</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#sale" data-bs-toggle="tab">SALE</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="tab-content">
+            <!-- Tab 1 -->
+            <div class="tab-pane fade show active" id="recent">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="product-card position-relative">
+                            <img src="/assets/product.jpeg" alt="Product" class="img-fluid">
+                            <h5 class="mt-3">Kids Storage Wonder</h5>
+                            <span class="product-sale-price">Min Order Quantity: 28</span>
+                            <p><span>400.00 AED</span></p>
+                            <a href="#" class="btn btn-outline-primary">ADD TO CART</a>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="product-card position-relative">
+                            <img src="/assets/product.jpeg" alt="Product" class="img-fluid">
+                            <h5 class="mt-3">Rainbow Study Station</h5>
+                            <span class="product-sale-price">Min Order Quantity: 39</span>
+                            <p><span>700.00 AED</span></p>
+                            <a href="#" class="btn btn-outline-primary">ADD TO CART</a>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="product-card position-relative">
+                            <img src="/assets/product.jpeg" alt="Product" class="img-fluid">
+                            <h5 class="mt-3">Compact Kitchen Island</h5>
+                            <span class="product-sale-price">Min Order Quantity: 14</span>
+                            <p><span>1,100.00 AED</span></p>
+                            <a href="#" class="btn btn-outline-primary">ADD TO CART</a>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="product-card position-relative">
+                            <img src="/assets/product.jpeg" alt="Product" class="img-fluid">
+                            <h5 class="mt-3">Adventure Bunk Bed</h5>
+                            <span class="product-sale-price">Min Order Quantity: 35</span>
+                            <p><span>1,600.00 AED</span></p>
+                            <a href="#" class="btn btn-outline-primary">ADD TO CART</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab 2 -->
+            <div class="tab-pane fade" id="featured">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="product-card position-relative">
+                            <img src="/assets/product.jpeg" alt="Product" class="img-fluid">
+                            <h5 class="mt-3">Rainbow Study Station</h5>
+                            <span class="product-sale-price">Min Order Quantity: 39</span>
+                            <p><span>700.00 AED</span></p>
+                            <a href="#" class="btn btn-outline-primary">ADD TO CART</a>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="product-card position-relative">
+                            <img src="/assets/product.jpeg" alt="Product" class="img-fluid">
+                            <h5 class="mt-3">Rainbow Study Station</h5>
+                            <span class="product-sale-price">Min Order Quantity: 39</span>
+                            <p><span>700.00 AED</span></p>
+                            <a href="#" class="btn btn-outline-primary">ADD TO CART</a>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="product-card position-relative">
+                            <img src="/assets/product.jpeg" alt="Product" class="img-fluid">
+                            <h5 class="mt-3">Rainbow Study Station</h5>
+                            <span class="product-sale-price">Min Order Quantity: 39</span>
+                            <p><span>700.00 AED</span></p>
+                            <a href="#" class="btn btn-outline-primary">ADD TO CART</a>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="product-card position-relative">
+                            <img src="/assets/product.jpeg" alt="Product" class="img-fluid">
+                            <h5 class="mt-3">Rainbow Study Station</h5>
+                            <span class="product-sale-price">Min Order Quantity: 39</span>
+                            <p><span>700.00 AED</span></p>
+                            <a href="#" class="btn btn-outline-primary">ADD TO CART</a>
+                        </div>
+                    </div>
+                    <!-- باقي المنتجات هنا -->
+
+                </div>
+            </div>
+
+            <!-- Tab 3 -->
+            <div class="tab-pane fade" id="sale">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="product-card position-relative">
+                            <img src="/assets/product.jpeg" alt="Product" class="img-fluid">
+                            <h5 class="mt-3">Adventure Bunk Bed</h5>
+                            <span class="product-sale-price">Min Order Quantity: 35</span>
+                            <p><span>1,600.00 AED</span></p>
+                            <a href="#" class="btn btn-outline-primary">ADD TO CART</a>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="product-card position-relative">
+                            <img src="/assets/product.jpeg" alt="Product" class="img-fluid">
+                            <h5 class="mt-3">Adventure Bunk Bed</h5>
+                            <span class="product-sale-price">Min Order Quantity: 35</span>
+                            <p><span>1,600.00 AED</span></p>
+                            <a href="#" class="btn btn-outline-primary">ADD TO CART</a>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="product-card position-relative">
+                            <img src="/assets/product.jpeg" alt="Product" class="img-fluid">
+                            <h5 class="mt-3">Adventure Bunk Bed</h5>
+                            <span class="product-sale-price">Min Order Quantity: 35</span>
+                            <p><span>1,600.00 AED</span></p>
+                            <a href="#" class="btn btn-outline-primary">ADD TO CART</a>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="product-card position-relative">
+                            <img src="/assets/product.jpeg" alt="Product" class="img-fluid">
+                            <h5 class="mt-3">Adventure Bunk Bed</h5>
+                            <span class="product-sale-price">Min Order Quantity: 35</span>
+                            <p><span>1,600.00 AED</span></p>
+                            <a href="#" class="btn btn-outline-primary">ADD TO CART</a>
+                        </div>
+                    </div>
+                    <!-- باقي المنتجات هنا -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- New Brands Section -->
+    <section class="new-brands-section">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6 new-brands-content col-sm-12">
+                    <h2 class="display-5">Fresh Meals, Trusted Brands</h2>
+                    <p class="mt-3">
+                        Discover a world of delicious, high-quality meals crafted by top manufacturers and brands.<br>
+                        Our latest selection brings you freshly prepared meals, premium ingredients,<br> and innovative
+                        food solutions—perfect for busy lifestyles and gourmet tastes alike.
+
+                        From ready-to-eat dishes to custom-made meal kits, <br> our new arrivals ensure convenience,
+                        nutrition, and unbeatable flavor in every bite. <br>
+                        Whether you're craving a hearty meal, a healthy option, or a quick snack, we've got something to
+                        satisfy every appetite <br>
+                    </p>
+                    <p>
+                        Top-rated brands delivering excellence. <br>
+                        Handpicked meals made with fresh, quality ingredients. <br>
+                        Convenience meets taste—just heat and enjoy!
+                    </p>
+                    <button class="btn shop-now-btn">SHOP NOW</button>
+                </div>
+                <div class="col-md-6 new-brands-image col-sm-12">
+                    <img src="/assets/Upholstery.jpg" alt="Tech Innovation Dashboard" class="img-fluid" style="height: 493px;">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Products Section -->
+
+    <section class="featured-products">
+        <div class="container">
+            <div class="featured-products-title text-center">
+                <h2>Featured Products</h2>
+                <hr>
+            </div>
+
+            <div id="featuredProductsCarousel" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+
+                    <!-- الشريحة الأولى -->
+                    <div class="carousel-item active">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="featured-product-card text-center">
+                                    <div class="sale-badge">Sale!</div>
+                                    <img src="/assets/product.jpeg" class="img-fluid" alt="Product">
+                                    <h5>Monaco King Size Bed</h5>
+                                    <span class="product-price-sale">Min Order Quantity: 28</span>
+                                    <p>
+                                        <span class="">1,800.00 AED</span>
+                                    </p>
+                                    <a href="#" class="btn btn-primary">Add to cart</a>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="featured-product-card text-center">
+                                    <div class="sale-badge">Sale!</div>
+                                    <img src="/assets/product.jpeg" class="img-fluid" alt="Product">
+                                    <h5>Monaco King Size Bed</h5>
+                                    <span class="product-price-sale">Min Order Quantity: 28</span>
+                                    <p>
+                                        <span class="">1,800.00 AED</span>
+                                    </p>
+                                    <a href="#" class="btn btn-primary">Add to cart</a>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="featured-product-card text-center">
+                                    <div class="sale-badge">Sale!</div>
+                                    <img src="/assets/product.jpeg" class="img-fluid" alt="Product">
+                                    <h5>Monaco King Size Bed</h5>
+                                    <span class="product-price-sale">Min Order Quantity: 28</span>
+                                    <p>
+                                        <span class="">1,800.00 AED</span>
+                                    </p>
+                                    <a href="#" class="btn btn-primary">Add to cart</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- الشريحة الثانية -->
+                    <div class="carousel-item">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="featured-product-card text-center">
+                                    <div class="sale-badge">Sale!</div>
+                                    <img src="/assets/product.jpeg" class="img-fluid" alt="Product">
+                                    <h5>Monaco King Size Bed</h5>
+                                    <span class="product-price-sale">Min Order Quantity: 28</span>
+                                    <p>
+                                        <span class="">1,800.00 AED</span>
+                                    </p>
+                                    <a href="#" class="btn btn-primary">Add to cart</a>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="featured-product-card text-center">
+                                    <div class="sale-badge">Sale!</div>
+                                    <img src="/assets/product.jpeg" class="img-fluid" alt="Product">
+                                    <h5>Monaco King Size Bed</h5>
+                                    <span class="product-price-sale">Min Order Quantity: 28</span>
+                                    <p>
+                                        <span class="">1,800.00 AED</span>
+                                    </p>
+                                    <a href="#" class="btn btn-primary">Add to cart</a>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="featured-product-card text-center">
+                                    <div class="sale-badge">Sale!</div>
+                                    <img src="/assets/product.jpeg" class="img-fluid" alt="Product">
+                                    <h5>Monaco King Size Bed</h5>
+                                    <span class="product-price-sale">Min Order Quantity: 28</span>
+                                    <p>
+                                        <span class="">1,800.00 AED</span>
+                                    </p>
+                                    <a href="#" class="btn btn-primary">Add to cart</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- أزرار التصفح -->
+                <button class="carousel-control-prev" type="button" data-bs-target="#featuredProductsCarousel"
+                    data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#featuredProductsCarousel"
+                    data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+
+                <!-- النقاط السفلية -->
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#featuredProductsCarousel" data-bs-slide-to="0" class="active"
+                        aria-current="true"></button>
+                    <button type="button" data-bs-target="#featuredProductsCarousel" data-bs-slide-to="1"></button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Marketing Banners -->
+    <section class="marketing-banners container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="marketing-banner">
+                    <img src="/assets/product.jpeg" alt="Product Banner">
+                    <div class="marketing-banner-content">
+                        <h4>Monaco King Size Bed</h4>
+                        <p>Se adipiscing elit. Morbi imperdiet, mauris ac auctor dictum</p>
+                        <button class="shop-now-btn">Shop Now</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6">
+                <div class="marketing-banner dark">
+                    <img src="/assets/product.jpeg" alt="Product Banner">
+                    <div class="marketing-banner-content">
+                        <h4>Monaco King Size Bed</h4>
+                        <p>Se adipiscing elit. Morbi imperdiet, mauris ac auctor dictum</p>
+                        <button class="shop-now-btn">Shop Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Store Features -->
+    <section class="store-features container">
+        <div class="row">
+            <div class="col-md-4 store-feature-item">
+                <i class="fas fa-paper-plane"></i>
+                <h5>Free Shipping</h5>
+                <p>Enjoy fast and free delivery on all your orders! No hidden fees—just seamless shopping and doorstep convenience.</p>
+            </div>
+            <div class="col-md-4 store-feature-item">
+                <i class="fas fa-star"></i>
+                <h5>5 Star Rating</h5>
+                <p>Our customers love us! Top-rated products and exceptional quality ensure a shopping experience you can trust.</p>
+            </div>
+            <div class="col-md-4 store-feature-item">
+                <i class="fas fa-headset"></i>
+                <h5>24/7 Support</h5>
+                <p>Got a question? We’re here for you day and night! Our expert support team is ready to assist you anytime.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Lists -->
+    <section class="product-lists ">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="product-list-section">
+                        <h4>On Sale Products</h4>
+                        <div class="product-list-item">
+                            <img src="/assets/product.jpeg" alt="Product Banner">
+                            <div>
+                                <h6>Adventure Bunk Bed</h6>
+                                <div class="prices">
+                                    <span class="original-price">$25.00</span>
+                                    <span class="sale-price">$22.00</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-list-item">
+                            <img src="/assets/product.jpeg" alt="Product Banner">
+                            <div>
+                                <h6>Compact Kitchen Island</h6>
+                                <div class="prices">
+                                    <span class="original-price">$55.00</span>
+                                    <span class="sale-price">$29.00</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-list-item">
+                            <img src="/assets/product.jpeg" alt="Product Banner">
+                            <div>
+                                <h6>Rainbow Study Station</h6>
+                                <div class="prices">
+                                    <span class="original-price">$99.00</span>
+                                    <span class="sale-price">$79.00</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="product-list-section">
+                        <h4>Featured Products</h4>
+                        <div class="product-list-item">
+                            <img src="/assets/product.jpeg" alt="Product Banner">
+                            <div>
+                                <h6>Kids Storage Wonder</h6>
+                                <div class="prices">
+                                    <span class="sale-price">$20.00</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-list-item">
+                            <img src="/assets/product.jpeg" alt="Product Banner">
+                            <div>
+                                <h6>Rainbow Study Station</h6>
+                                <div class="prices">
+                                    <span class="original-price">$55.00</span>
+                                    <span class="sale-price">$29.00</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-list-item">
+                            <img src="/assets/product.jpeg" alt="Product Banner">
+                            <div>
+                                <h6>Compact Kitchen Island</h6>
+                                <div class="prices">
+                                    <span class="original-price">$89.00</span>
+                                    <span class="sale-price">$99.00</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="product-list-section">
+                        <h4>New Products</h4>
+                        <div class="product-list-item">
+                            <img src="/assets/product.jpeg" alt="Product Banner">
+                            <div>
+                                <h6>Adventure Bunk Bed</h6>
+                                <div class="prices">
+                                    <span class="original-price">$55.00</span>
+                                    <span class="sale-price">$29.00</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-list-item">
+                            <img src="/assets/product.jpeg" alt="Product Banner">
+                            <div>
+                                <h6>Kids Storage Wonder</h6>
+                                <div class="prices">
+                                    <span class="original-price">$25.00</span>
+                                    <span class="sale-price">$22.00</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-list-item">
+                            <img src="/assets/product.jpeg" alt="Product Banner">
+                            <div>
+                                <h6>Compact Kitchen Island</h6>
+                                <div class="prices">
+                                    <span class="sale-price">$45.00</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="text-dark mt-5">
+        <div class="footerOne p-4">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4">
+                        <p><strong>Address:</strong> <span class="fw-bold">Emirates</span></p>
+                        <p><strong>Email:</strong> <a href="mailto:info@masnaaco.ae" class="text-dark fw-bold">info@masnaaco.ae</a></p>
+                        <p><strong>Phone:</strong> <a href="tel:+971501234567" class="text-dark fw-bold">+971501234567</a></p>
+                        <div class="social-icons mt-3">
+                            <a href="#" class="text-dark me-2"><i class="fab fa-facebook"></i></a>
+                            <a href="#" class="text-dark me-2"><i class="fab fa-x-twitter"></i></a>
+                            <a href="#" class="text-dark me-2"><i class="fab fa-instagram"></i></a>
+                            <a href="#" class="text-dark me-2"><i class="fab fa-tiktok"></i></a>
+                            <a href="#" class="text-dark"><i class="fab fa-pinterest"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <h6 class="fw-bold text-dark">Help</h6>
+                        <ul class="list-unstyled">
+                            <li><a href="#" class="text-dark">Who we are</a></li>
+                            <li><a href="#" class="text-dark">Terms and Conditions</a></li>
+                            <li><a href="#" class="text-dark">Privacy Policy</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4">
+                        <h6 class="fw-bold text-dark">About us</h6>
+                        <ul class="list-unstyled">
+                            <li><a href="#" class="text-dark">Contact Us</a></li>
+                            <li><a href="#" class="text-dark">Account</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+    
+            <hr class="bg-secondary my-4">
+    
+            
+        </div>
+    </footer>
+    
+    
+    <div class="text-center bg-dark p-4 text-white">
+        <p class="mb-0">© 2025 Nano Technical Solution All Rights Reserved.</p>
+    </div>
+
+    <!-- Rest of the previous content remains the same -->
+    <!-- ... -->
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>

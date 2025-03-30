@@ -1,0 +1,1256 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Factories</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+        }
+
+        /* Navbar */
+        .navbar-custom {
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .search-container {
+            position: relative;
+        }
+
+        .search-container .form-control {
+            padding-right: 100px;
+        }
+
+        .search-container .dropdown {
+            position: absolute;
+            top: 50%;
+            right: 80px;
+            transform: translateY(-50%);
+        }
+
+        .search-container .btn-search {
+            position: absolute;
+            top: 50%;
+            right: 0;
+            transform: translateY(-50%);
+            background-color: #ff4757;
+            color: white;
+            border: none;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            /* background-image: url('assets/bg-1.jpg'); */
+
+            background: linear-gradient(to right, #faf5f9, #c3cfe2);
+            padding: 50px 0;
+            position: relative;
+            margin-bottom: 40px;
+
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Factory Content */
+        .search-factory-container {
+            position: relative;
+            max-width: 600px;
+            margin: 0 auto 30px;
+        }
+
+        .search-factory-container .form-control {
+            padding: 15px 120px 15px 20px;
+            border-radius: 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e0e0e0;
+        }
+
+        .search-factory-container .btn-search {
+            position: absolute;
+            top: 50%;
+            right: 5px;
+            transform: translateY(-50%);
+            background-color: #ff4757;
+            color: white;
+            border: none;
+            padding: 8px 25px;
+            border-radius: 30px;
+            transition: background-color 0.3s ease;
+        }
+
+        .search-factory-container .btn-search:hover {
+            background-color: #ff6b81;
+        }
+
+        /* Categories Sidebar */
+        .categories-sidebar {
+            background-color: white;
+            border: 1px solid #e0e0e0;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+        .categories-sidebar h4 {
+            color: #333;
+            padding: 10px 15px;
+            border-bottom: 1px solid #e0e0e0;
+            margin-bottom: 15px;
+        }
+
+        .categories-sidebar .nav-link {
+            color: #333;
+            padding: 8px 15px;
+            transition: all 0.3s ease;
+            border-radius: 5px;
+            margin-bottom: 5px;
+        }
+
+        .categories-sidebar .nav-link:hover,
+        .categories-sidebar .nav-link.active {
+            background-color: #f8f9fa;
+            color: #ff4757;
+        }
+
+        .categories-sidebar .nav-link i {
+            margin-right: 10px;
+            color: #ff4757;
+        }
+
+        /* No Results */
+        .no-results {
+            text-align: center;
+            padding: 50px 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .no-results i {
+            font-size: 4rem;
+            color: #ff4757;
+            margin-bottom: 20px;
+        }
+
+        .no-results h3 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .no-results p {
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #ff4757;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.3s ease, background-color 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+            z-index: 1000;
+        }
+
+        .back-to-top:hover {
+            background-color: #ff6b81;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+        }
+
+        /* Footer Styles */
+        footer a {
+            color: #333;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: #ff4757;
+        }
+
+        footer h6 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        footer hr {
+            border-color: #f7eeee;
+        }
+
+        .footerOne {
+            background-color: rgb(231, 231, 231);
+        }
+
+        /* Animation for cards appearing */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Factories Grid */
+        .factories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .factory-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        .factory-card:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .factory-card:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .factory-card:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .factory-card:nth-child(4) {
+            animation-delay: 0.4s;
+        }
+
+        .factory-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .factory-image {
+            height: 180px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .factory-info {
+            padding: 20px;
+        }
+
+        .factory-info h2 {
+            margin-top: 0;
+            color: #333;
+            font-size: 1.4rem;
+        }
+
+        .factory-stats {
+            display: flex;
+            justify-content: space-between;
+            margin: 15px 0;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #ff4757;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        .view-details-btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: transparent;
+            color: #ff4757;
+            border: 1px solid #ff4757;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .view-details-btn:hover {
+            background-color: #ff4757;
+            color: white;
+        }
+
+        /* Modal Styles */
+        #details-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background-color: white;
+            width: 90%;
+            max-width: 800px;
+            border-radius: 8px;
+            overflow: hidden;
+            max-height: 90vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background-color: #ff4757;
+            color: white;
+        }
+
+        .modal-header h2 {
+            margin: 0;
+            font-size: 1.6rem;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .close-btn:hover {
+            transform: scale(1.2);
+        }
+
+        .modal-body {
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .detail-section {
+            margin-bottom: 20px;
+        }
+
+        .detail-section h3 {
+            color: #ff4757;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+        }
+
+        .factory-metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .metric-card {
+            background-color: #f5f7ff;
+            padding: 15px;
+            border-radius: 6px;
+            text-align: center;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .metric-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #ff4757;
+            margin-bottom: 5px;
+        }
+
+        .production-chart {
+            width: 100%;
+            height: 200px;
+            background-color: #f5f7ff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+            border-radius: 6px;
+        }
+
+        .employee-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .employee-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+            transition: background-color 0.2s ease;
+        }
+
+        .employee-item:hover {
+            background-color: #f9f9f9;
+        }
+
+        .employee-item:last-child {
+            border-bottom: none;
+        }
+
+        .employee-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #ff4757;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 15px;
+            font-weight: bold;
+        }
+
+        .employee-info {
+            flex-grow: 1;
+        }
+
+        .employee-name {
+            font-weight: bold;
+            margin-bottom: 3px;
+        }
+
+        .employee-position {
+            font-size: 0.85rem;
+            color: #666;
+        }
+
+        .tab-container {
+            display: flex;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 20px;
+        }
+
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.2s ease;
+        }
+
+        .tab:hover {
+            color: #ff4757;
+        }
+
+        .tab.active {
+            border-bottom: 3px solid #ff4757;
+            color: #ff4757;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        /* No results message */
+        #no-results {
+            text-align: center;
+            padding: 40px 20px;
+            display: none;
+        }
+
+        #no-results i {
+            font-size: 3rem;
+            color: #ff4757;
+            margin-bottom: 15px;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .search-factory-container .form-control {
+                padding-right: 20px;
+            }
+
+            .search-factory-container .btn-search {
+                position: relative;
+                transform: none;
+                width: 100%;
+                margin-top: 10px;
+                right: auto;
+                top: auto;
+            }
+
+            .factory-metrics {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .employee-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .employee-avatar {
+                margin-bottom: 10px;
+            }
+
+            .tab {
+                padding: 8px 12px;
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .factory-metrics {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-content {
+                width: 95%;
+            }
+
+            .factory-card {
+                margin-bottom: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light navbar-custom">
+        <div class="container">
+            <!-- Logo -->
+            <a class="navbar-brand" href="#">
+                <img src="assets/logo.png" alt="Envo One Logo" style="width: 65px;">
+            </a>
+
+            <!-- Mobile Toggle Button -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Navigation Links -->
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">HOME</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link  " href="factories.html" >Factories</a>
+                       
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link " href="Categories.html" >Categories</a>
+                     
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link " href="Products.html" >Products</a>
+                      
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-danger" href="Blogs.html">Blogs</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-danger" href="AboutUs.html">Contact Us</a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Right Icons -->
+            <div class="navbar-nav flex-row">
+                <div class="search-container me-3">
+                    <form class="d-flex">
+                        <input class="form-control me-2" type="search" placeholder="Search products..."
+                            aria-label="Search">
+                        <button class="btn btn-search" type="submit"><i class="fas fa-search"></i></button>
+                    </form>
+                </div>
+
+                <div class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="badge bg-danger">0</span>
+                        $0.00
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="hero-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-12 text-center hero-content">
+                    <h1 class="display-4 fw-bold mb-4">Our Factories</h1>
+                    <p class="lead mb-4">Discover our amazing collection of factories and find what you are looking for
+                    </p>
+                    <div class="search-factory-container">
+                        <input type="text" id="searchInput" class="form-control" placeholder="Search factories...">
+                        <button class="btn btn-search" id="searchBtn">
+                            <i class="fas fa-search me-2"></i> Search
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container mb-5">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-lg-3">
+                <!-- Categories Sidebar -->
+                <div class="categories-sidebar mb-4">
+                    <h4>Factory Categories</h4>
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#" data-category="all">
+                                <i class="fas fa-globe"></i> All Factories
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" data-category="food">
+                                <i class="fas fa-utensils"></i> Food Processing
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" data-category="electronics">
+                                <i class="fas fa-microchip"></i> Electronics
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" data-category="textile">
+                                <i class="fas fa-tshirt"></i> Textile
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" data-category="automotive">
+                                <i class="fas fa-car"></i> Automotive
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Featured Factory -->
+                <div class="card mb-4">
+                    <div class="card-header bg-danger text-white">
+                        <h5 class="mb-0">Featured Factory</h5>
+                    </div>
+                    <div class="card-body">
+                        <img src="/api/placeholder/300/200" alt="Featured Factory" class="img-fluid mb-3">
+                        <h5>Premium Factory</h5>
+                        <p class="small text-muted">Our most advanced manufacturing facility with cutting-edge
+                            technology.</p>
+                        <a href="#" class="btn btn-sm view-details-btn w-100">Learn More</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Factory Listings -->
+            <div class="col-lg-9">
+                <div id="no-results" class="mb-4">
+                    <i class="fas fa-search"></i>
+                    <h4>No factories found</h4>
+                    <p>Try adjusting your search or filter criteria</p>
+                    <button id="resetSearchBtn" class="btn btn-outline-danger">Reset Search</button>
+                </div>
+
+                <div class="factories-grid" id="factories-container">
+                    <!-- Factory cards will be generated here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Factory Details -->
+    <div id="details-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-title">Factory Details</h2>
+                <button class="close-btn" id="close-modal">&times;</button>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <!-- Factory details will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Back to Top Button -->
+    <div class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <!-- Footer -->
+    <footer class="text-dark mt-5">
+        <div class="footerOne p-4">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4">
+                        <p><strong>Address:</strong> <span class="fw-bold">Emirates</span></p>
+                        <p><strong>Email:</strong> <a href="mailto:info@masnaaco.ae"
+                                class="text-dark fw-bold">info@masnaaco.ae</a></p>
+                        <p><strong>Phone:</strong> <a href="tel:+971501234567"
+                                class="text-dark fw-bold">+971501234567</a></p>
+                        <div class="social-icons mt-3">
+                            <a href="#" class="text-dark me-2"><i class="fab fa-facebook"></i></a>
+                            <a href="#" class="text-dark me-2"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="text-dark me-2"><i class="fab fa-instagram"></i></a>
+                            <a href="#" class="text-dark me-2"><i class="fab fa-tiktok"></i></a>
+                            <a href="#" class="text-dark"><i class="fab fa-pinterest"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <h6 class="fw-bold text-dark">Help</h6>
+                        <ul class="list-unstyled">
+                            <li><a href="#" class="text-dark">Who we are</a></li>
+                            <li><a href="#" class="text-dark">Terms and Conditions</a></li>
+                            <li><a href="#" class="text-dark">Privacy Policy</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4">
+                        <h6 class="fw-bold text-dark">About us</h6>
+                        <ul class="list-unstyled">
+                            <li><a href="#" class="text-dark">Contact Us</a></li>
+                            <li><a href="#" class="text-dark">Account</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="bg-secondary my-4">
+        </div>
+    </footer>
+
+
+    <div class="text-center bg-dark p-4 text-white">
+        <p class="mb-0">© 2025 Nano Technical Solution All Rights Reserved.</p>
+    </div>
+
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // Sample factory data - in a real application, this would come from a database
+        const factories = [
+            {
+                id: 1,
+                name: "North Manufacturing Plant",
+                location: "Chicago, IL",
+                category: "automotive",
+                description: "Advanced manufacturing facility specializing in automotive parts",
+                imageUrl: "/assets/bg-1.jpg",
+                employees: 248,
+                productivity: 87,
+                machines: 52,
+                established: "2005",
+                manager: "Jennifer Wilson",
+                mainProducts: ["Industrial Pumps", "Hydraulic Systems", "Valve Assemblies"],
+                productionCapacity: "12,500 units/month",
+                operationalCost: "$2.3M/month",
+                safetyRating: "A+",
+                lastInspection: "February 15, 2025",
+                certifications: ["ISO 9001", "ISO 14001", "OHSAS 18001"],
+                keyEmployees: [
+                    { name: "Jennifer Wilson", position: "Factory Manager" },
+                    { name: "Michael Rodriguez", position: "Production Supervisor" },
+                    { name: "Sarah Johnson", position: "Quality Control Manager" },
+                    { name: "David Chen", position: "Maintenance Lead" },
+                    { name: "Lisa Thompson", position: "Safety Officer" }
+                ],
+                recentIssues: [
+                    "Minor hydraulic leak on assembly line B (Fixed)",
+                    "Scheduled maintenance for press machine #8",
+                    "Supply chain delay for raw materials (Resolved)"
+                ],
+                performanceMetrics: {
+                    productionEfficiency: "92%",
+                    qualityRating: "96.8%",
+                    onTimeDelivery: "94.2%",
+                    energyConsumption: "320 MWh/month",
+                    wasteGeneration: "2.1 tons/month",
+                    maintenanceCosts: "$125,000/month"
+                }
+            },
+            {
+                id: 2,
+                name: "Eastside Electronics",
+                location: "Boston, MA",
+                category: "electronics",
+                description: "High-tech electronics production facility with automated assembly lines",
+                imageUrl: "/assets/GlassFurniture.jpg",
+                employees: 187,
+                productivity: 93,
+                machines: 68,
+                established: "2009",
+                manager: "Robert Chang",
+                mainProducts: ["Circuit Boards", "Sensors", "Electronic Components"],
+                productionCapacity: "25,000 units/month",
+                operationalCost: "$1.8M/month",
+                safetyRating: "A",
+                lastInspection: "January 22, 2025",
+                certifications: ["ISO 9001", "IPC-A-610", "RoHS Compliance"],
+                keyEmployees: [
+                    { name: "Robert Chang", position: "Factory Manager" },
+                    { name: "Emily Parker", position: "Production Supervisor" },
+                    { name: "Thomas Lee", position: "Quality Control Manager" },
+                    { name: "Rebecca Williams", position: "Engineering Lead" },
+                    { name: "Jose Martinez", position: "Supply Chain Coordinator" }
+                ],
+                recentIssues: [
+                    "Software update needed for testing equipment",
+                    "Minor power fluctuation on March 12 (Resolved)",
+                    "Recalibration of precision soldering machines"
+                ],
+                performanceMetrics: {
+                    productionEfficiency: "94.5%",
+                    qualityRating: "99.2%",
+                    onTimeDelivery: "91.7%",
+                    energyConsumption: "280 MWh/month",
+                    wasteGeneration: "0.8 tons/month",
+                    maintenanceCosts: "$142,000/month"
+                }
+            },
+            {
+                id: 3,
+                name: "Westport Automotive",
+                location: "Detroit, MI",
+                category: "automotive",
+                description: "Specialized factory producing components for the automotive industry",
+                imageUrl: "/assets/CommercialFurniture.jpg",
+                employees: 312,
+                productivity: 81,
+                machines: 87,
+                established: "1998",
+                manager: "Anthony Richardson",
+                mainProducts: ["Engine Components", "Transmission Parts", "Chassis Elements"],
+                productionCapacity: "8,200 units/month",
+                operationalCost: "$3.1M/month",
+                safetyRating: "A-",
+                lastInspection: "March 5, 2025",
+                certifications: ["IATF 16949", "ISO 14001", "OHSAS 18001"],
+                keyEmployees: [
+                    { name: "Anthony Richardson", position: "Factory Manager" },
+                    { name: "Maria Gonzalez", position: "Production Supervisor" },
+                    { name: "James Wilson", position: "Quality Control Manager" },
+                    { name: "Karen Smith", position: "Logistics Coordinator" },
+                    { name: "Steve Johnson", position: "Maintenance Director" }
+                ],
+                recentIssues: [
+                    "Tooling update required for new model production",
+                    "Scheduled maintenance for robotic welding line",
+                    "Training for new safety protocols in progress"
+                ],
+                performanceMetrics: {
+                    productionEfficiency: "86.3%",
+                    qualityRating: "94.5%",
+                    onTimeDelivery: "89.1%",
+                    energyConsumption: "420 MWh/month",
+                    wasteGeneration: "3.2 tons/month",
+                    maintenanceCosts: "$185,000/month"
+                }
+            },
+            {
+                id: 4,
+                name: "Sunshine Food Processing",
+                location: "Los Angeles, CA",
+                category: "food",
+                description: "State-of-the-art food processing plant with advanced sanitization systems",
+                imageUrl: "/assets/CommercialFurniture.jpg",
+                employees: 156,
+                productivity: 89,
+                machines: 41,
+                established: "2012",
+                manager: "Katherine Lopez",
+                mainProducts: ["Packaged Meals", "Frozen Foods", "Snack Products"],
+                productionCapacity: "35,000 units/month",
+                operationalCost: "$1.5M/month",
+                safetyRating: "A+",
+                lastInspection: "February 10, 2025",
+                certifications: ["HACCP", "ISO 22000", "FSSC 22000", "FDA Approved"],
+                keyEmployees: [
+                    { name: "Katherine Lopez", position: "Factory Manager" },
+                    { name: "Daniel Brown", position: "Production Supervisor" },
+                    { name: "Linda Garcia", position: "Quality Assurance Manager" },
+                    { name: "Robert Kim", position: "Sanitation Director" },
+                    { name: "Mary Williams", position: "Compliance Officer" }
+                ],
+                recentIssues: [
+                    "Scheduled sanitization of production lines",
+                    "Packaging material supplier change (In progress)",
+                    "FDA inspection preparation (Completed)"
+                ],
+                performanceMetrics: {
+                    productionEfficiency: "91.2%",
+                    qualityRating: "97.9%",
+                    onTimeDelivery: "95.4%",
+                    energyConsumption: "250 MWh/month",
+                    wasteGeneration: "1.5 tons/month",
+                    maintenanceCosts: "$110,000/month"
+                }
+            },
+            {
+                id: 5,
+                name: "Southern Textile Mills",
+                location: "Atlanta, GA",
+                category: "textile",
+                description: "Modern textile manufacturing facility with eco-friendly processes",
+                imageUrl: "/assets/CommercialFurniture.jpg",
+                employees: 124,
+                productivity: 84,
+                machines: 29,
+                established: "2003",
+                manager: "William Taylor",
+                mainProducts: ["Industrial Fabrics", "Sustainable Textiles", "Specialty Fibers"],
+                productionCapacity: "45,000 yards/month",
+                operationalCost: "$1.2M/month",
+                safetyRating: "A",
+                lastInspection: "January 30, 2025",
+                certifications: ["ISO 9001", "OEKO-TEX Standard 100", "Global Organic Textile Standard"],
+                keyEmployees: [
+                    { name: "William Taylor", position: "Factory Manager" },
+                    { name: "Jessica Anderson", position: "Production Supervisor" },
+                    { name: "Andrew Martin", position: "Quality Control Manager" },
+                    { name: "Sophia Chen", position: "Design Lead" },
+                    { name: "Marcus Johnson", position: "Sustainability Coordinator" }
+                ],
+                recentIssues: [
+                    "New eco-friendly dye implementation (In progress)",
+                    "Fabric cutting machine calibration (Scheduled)",
+                    "Water recycling system maintenance (Completed)"
+                ],
+                performanceMetrics: {
+                    productionEfficiency: "88.7%",
+                    qualityRating: "95.3%",
+                    onTimeDelivery: "92.8%",
+                    energyConsumption: "190 MWh/month",
+                    wasteGeneration: "1.2 tons/month",
+                    maintenanceCosts: "$95,000/month"
+                }
+            }
+        ];
+
+        // Function to render all factories
+        function renderFactories(factoriesToRender) {
+            const container = document.getElementById('factories-container');
+            container.innerHTML = '';
+
+            if (factoriesToRender.length === 0) {
+                document.getElementById('no-results').style.display = 'block';
+                container.style.display = 'none';
+            } else {
+                document.getElementById('no-results').style.display = 'none';
+                container.style.display = 'grid';
+
+                factoriesToRender.forEach(factory => {
+                    const card = document.createElement('div');
+                    card.className = 'factory-card';
+                    card.innerHTML = `
+                        <div class="factory-image" style="background-image: url(${factory.imageUrl})"></div>
+                        <div class="factory-info">
+                            <h2>${factory.name}</h2>
+                            <p><i class="fas fa-map-marker-alt me-2"></i>${factory.location}</p>
+                            <p class="text-muted"><i class="fas fa-tag me-2"></i>${getCategoryName(factory.category)}</p>
+                           
+                            <button class="view-details-btn" data-factory-id="${factory.id}">View Details</button>
+                        </div>
+                    `;
+                    container.appendChild(card);
+                });
+
+                // Attach click events to the detail buttons
+                document.querySelectorAll('.view-details-btn').forEach(button => {
+                    button.addEventListener('click', function () {
+                        const factoryId = parseInt(this.getAttribute('data-factory-id'));
+                        openFactoryDetails(factoryId);
+                    });
+                });
+            }
+        }
+
+        // Helper function to get readable category name
+        function getCategoryName(category) {
+            const categories = {
+                'automotive': 'Automotive',
+                'electronics': 'Electronics',
+                'food': 'Food Processing',
+                'textile': 'Textile'
+            };
+            return categories[category] || 'Other';
+        }
+
+        // Function to open factory details modal
+        function openFactoryDetails(factoryId) {
+            const factory = factories.find(f => f.id === factoryId);
+            if (!factory) return;
+
+            const modalTitle = document.getElementById('modal-title');
+            const modalBody = document.getElementById('modal-body');
+
+            modalTitle.textContent = factory.name;
+
+            // Build the modal content
+            let modalContent = `
+                <div class="tab-container">
+                    <div class="tab active" data-tab="overview">Overview</div>
+                    <div class="tab" data-tab="metrics">Performance</div>
+                    <div class="tab" data-tab="staff">Staff</div>
+                    <div class="tab" data-tab="issues">Issues</div>
+                </div>
+                
+                <div id="overview-tab" class="tab-content active">
+                    <div class="detail-section">
+                        <h3>Factory Information</h3>
+                        <p><strong>Location:</strong> ${factory.location}</p>
+                        <p><strong>Category:</strong> ${getCategoryName(factory.category)}</p>
+                        <p><strong>Description:</strong> ${factory.description}</p>
+                        <p><strong>Established:</strong> ${factory.established}</p>
+                        <p><strong>Manager:</strong> ${factory.manager}</p>
+                    </div>
+                    
+                    <div class="detail-section">
+                        <h3>Production Information</h3>
+                        <p><strong>Main Products:</strong> ${factory.mainProducts.join(', ')}</p>
+                        <p><strong>Production Capacity:</strong> ${factory.productionCapacity}</p>
+                        <p><strong>Operational Cost:</strong> ${factory.operationalCost}</p>
+                    </div>
+                    
+                    <div class="detail-section">
+                        <h3>Compliance</h3>
+                        <p><strong>Safety Rating:</strong> ${factory.safetyRating}</p>
+                        <p><strong>Last Inspection:</strong> ${factory.lastInspection}</p>
+                        <p><strong>Certifications:</strong> ${factory.certifications.join(', ')}</p>
+                    </div>
+                </div>
+                
+                <div id="metrics-tab" class="tab-content">
+                    <div class="detail-section">
+                        <h3>Performance Metrics</h3>
+                        <div class="factory-metrics">
+                            <div class="metric-card">
+                                <div class="metric-value">${factory.performanceMetrics.productionEfficiency}</div>
+                                <div>Production Efficiency</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">${factory.performanceMetrics.qualityRating}</div>
+                                <div>Quality Rating</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">${factory.performanceMetrics.onTimeDelivery}</div>
+                                <div>On-Time Delivery</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">${factory.performanceMetrics.energyConsumption}</div>
+                                <div>Energy Consumption</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">${factory.performanceMetrics.wasteGeneration}</div>
+                                <div>Waste Generation</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">${factory.performanceMetrics.maintenanceCosts}</div>
+                                <div>Maintenance Costs</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="detail-section">
+                        <h3>Production Trends</h3>
+                        <div class="production-chart">
+                            <p class="text-center">Production trends chart would be displayed here</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="staff-tab" class="tab-content">
+                    <div class="detail-section">
+                        <h3>Key Personnel</h3>
+                        <ul class="employee-list">
+                            ${factory.keyEmployees.map(employee => `
+                                <li class="employee-item">
+                                    <div class="employee-avatar">${employee.name.charAt(0)}</div>
+                                    <div class="employee-info">
+                                        <div class="employee-name">${employee.name}</div>
+                                        <div class="employee-position">${employee.position}</div>
+                                    </div>
+                                </li>
+                            `).join('')}
+                        </ul>
+                    </div>
+                </div>
+                
+                <div id="issues-tab" class="tab-content">
+                    <div class="detail-section">
+                        <h3>Recent Issues & Maintenance</h3>
+                        <ul class="list-group">
+                            ${factory.recentIssues.map(issue => `
+                                <li class="list-group-item">
+                                    <i class="fas fa-exclamation-circle me-2 text-warning"></i>
+                                    ${issue}
+                                </li>
+                            `).join('')}
+                        </ul>
+                    </div>
+                </div>
+            `;
+
+            modalBody.innerHTML = modalContent;
+
+            // Show the modal
+            document.getElementById('details-modal').style.display = 'flex';
+
+            // Add tab switching functionality
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.addEventListener('click', function () {
+                    // Remove active class from all tabs
+                    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+
+                    // Add active class to clicked tab
+                    this.classList.add('active');
+                    const tabName = this.getAttribute('data-tab');
+                    document.getElementById(`${tabName}-tab`).classList.add('active');
+                });
+            });
+        }
+
+        // Close modal when clicking the close button
+        document.getElementById('close-modal').addEventListener('click', function () {
+            document.getElementById('details-modal').style.display = 'none';
+        });
+
+        // Close modal when clicking outside the modal content
+        document.getElementById('details-modal').addEventListener('click', function (event) {
+            if (event.target === this) {
+                this.style.display = 'none';
+            }
+        });
+
+        // Search functionality
+        document.getElementById('searchBtn').addEventListener('click', function () {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            filterFactories(searchTerm);
+        });
+
+        // Reset search
+        document.getElementById('resetSearchBtn').addEventListener('click', function () {
+            document.getElementById('searchInput').value = '';
+            renderFactories(factories);
+
+            // Reset category selection
+            document.querySelectorAll('.categories-sidebar .nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            document.querySelector('.categories-sidebar .nav-link[data-category="all"]').classList.add('active');
+        });
+
+        // Filter factories based on search term
+        function filterFactories(searchTerm) {
+            const filteredFactories = factories.filter(factory => {
+                return (
+                    factory.name.toLowerCase().includes(searchTerm) ||
+                    factory.location.toLowerCase().includes(searchTerm) ||
+                    factory.description.toLowerCase().includes(searchTerm) ||
+                    getCategoryName(factory.category).toLowerCase().includes(searchTerm)
+                );
+            });
+
+            renderFactories(filteredFactories);
+        }
+
+        // Category filter functionality
+        document.querySelectorAll('.categories-sidebar .nav-link').forEach(link => {
+            link.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                // Update active state
+                document.querySelectorAll('.categories-sidebar .nav-link').forEach(l => {
+                    l.classList.remove('active');
+                });
+                this.classList.add('active');
+
+                const category = this.getAttribute('data-category');
+                if (category === 'all') {
+                    renderFactories(factories);
+                } else {
+                    const filteredFactories = factories.filter(factory => factory.category === category);
+                    renderFactories(filteredFactories);
+                }
+            });
+        });
+
+        // Back to top button functionality
+        const backToTopBtn = document.getElementById('backToTop');
+
+        window.addEventListener('scroll', function () {
+            if (window.pageYOffset > 300) {
+                backToTopBtn.classList.add('visible');
+            } else {
+                backToTopBtn.classList.remove('visible');
+            }
+        });
+
+        backToTopBtn.addEventListener('click', function () {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Initialize the page with all factories
+        document.addEventListener('DOMContentLoaded', function () {
+            renderFactories(factories);
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

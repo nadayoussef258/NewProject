@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Categories</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+
+    <!-- Font Awesome for icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+        }
+
+        /* navbar */
+        .navbar-custom {
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .search-container {
+            position: relative;
+        }
+
+        .search-container .form-control {
+            padding-right: 100px;
+        }
+
+        .search-container .dropdown {
+            position: absolute;
+            top: 50%;
+            right: 80px;
+            transform: translateY(-50%);
+        }
+
+        .search-container .btn-search {
+            position: absolute;
+            top: 50%;
+            right: 0;
+            transform: translateY(-50%);
+            background-color: #ff4757;
+            color: white;
+            border: none;
+        }
+
+         /* Hero Section */
+         .hero-section {
+            /* background-image: url('assets/bg-1.jpg'); */
+
+            background: linear-gradient(to right, #faf5f9, #c3cfe2);
+            padding: 50px 0;
+            position: relative;
+            margin-bottom: 40px;
+
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Factory Content */
+        .search-factory-container {
+            position: relative;
+            max-width: 600px;
+            margin: 0 auto 30px;
+        }
+
+        .search-factory-container .form-control {
+            padding: 15px 120px 15px 20px;
+            border-radius: 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e0e0e0;
+        }
+
+        .search-factory-container .btn-search {
+            position: absolute;
+            top: 50%;
+            right: 5px;
+            transform: translateY(-50%);
+            background-color: #ff4757;
+            color: white;
+            border: none;
+            padding: 8px 25px;
+            border-radius: 30px;
+            transition: background-color 0.3s ease;
+        }
+
+        .search-factory-container .btn-search:hover {
+            background-color: #ff6b81;
+        }
+
+
+         /* Footer Styles */
+         footer a {
+            color: #ffffff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: #ff4757;
+        }
+
+        footer h6 {
+            color: white;
+            margin-bottom: 15px;
+        }
+
+        footer hr {
+            border-color: #f7eeee;
+        }
+
+        .footerOne {
+            background-color: rgb(231, 231, 231);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light navbar-custom">
+        <div class="container">
+            <!-- Logo -->
+            <a class="navbar-brand" href="#">
+                <img src="assets/logo.png" alt="Envo One Logo" style="width: 65px;">
+            </a>
+
+            <!-- Mobile Toggle Button -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Navigation Links -->
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">HOME</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link  " href="factories.html" >Factories</a>
+                       
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link " href="Categories.html" >Categories</a>
+                     
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link " href="Products.html" >Products</a>
+                      
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-danger" href="Blogs.html">Blogs</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-danger" href="AboutUs.html">Contact Us</a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Right Icons -->
+            <div class="navbar-nav flex-row">
+                <div class="search-container me-3">
+                    <form class="d-flex">
+                        <input class="form-control me-2" type="search" placeholder="Search products..."
+                            aria-label="Search">
+                        <button class="btn btn-search" type="submit"><i class="fas fa-search"></i></button>
+                    </form>
+                </div>
+
+                <div class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="badge bg-danger">0</span>
+                        $0.00
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    
+    <!-- Hero Section -->
+    <div class="hero-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-12 text-center hero-content">
+                    <h1 class="display-4 fw-bold mb-4">Our Categories</h1>
+                    <p class="lead mb-4">Discover our amazing collection of Categories and find what you are looking for
+                    </p>
+                    <div class="search-factory-container">
+                        <input type="text" id="searchInput" class="form-control" placeholder="Search factories...">
+                        <button class="btn btn-search" id="searchBtn">
+                            <i class="fas fa-search me-2"></i> Search
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+<!-- Categories Section -->
+<div class="container my-5">
+    <div class="row" id="categoriesContainer">
+        <!-- Categories will be inserted here dynamically -->
+    </div>
+</div>
+
+
+
+    
+    <footer class="text-dark mt-5">
+        <div class="footerOne p-4">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4">
+                        <p><strong>Address:</strong> <span class="fw-bold">Emirates</span></p>
+                        <p><strong>Email:</strong> <a href="mailto:info@masnaaco.ae"
+                                class="text-dark fw-bold">info@masnaaco.ae</a></p>
+                        <p><strong>Phone:</strong> <a href="tel:+971501234567"
+                                class="text-dark fw-bold">+971501234567</a></p>
+                        <div class="social-icons mt-3">
+                            <a href="#" class="text-dark me-2"><i class="fab fa-facebook"></i></a>
+                            <a href="#" class="text-dark me-2"><i class="fab fa-x-twitter"></i></a>
+                            <a href="#" class="text-dark me-2"><i class="fab fa-instagram"></i></a>
+                            <a href="#" class="text-dark me-2"><i class="fab fa-tiktok"></i></a>
+                            <a href="#" class="text-dark"><i class="fab fa-pinterest"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <h6 class="fw-bold text-dark">Help</h6>
+                        <ul class="list-unstyled">
+                            <li><a href="#" class="text-dark">Who we are</a></li>
+                            <li><a href="#" class="text-dark">Terms and Conditions</a></li>
+                            <li><a href="#" class="text-dark">Privacy Policy</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4">
+                        <h6 class="fw-bold text-dark">About us</h6>
+                        <ul class="list-unstyled">
+                            <li><a href="#" class="text-dark">Contact Us</a></li>
+                            <li><a href="#" class="text-dark">Account</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="bg-secondary my-4">
+
+
+        </div>
+    </footer>
+
+
+    <div class="text-center bg-dark p-4 text-white">
+        <p class="mb-0">© 2025 Nano Technical Solution All Rights Reserved.</p>
+    </div>
+
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    
+        // Search functionality
+        document.getElementById('searchBtn').addEventListener('click', function () {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            filterFactories(searchTerm);
+        });
+
+        // Reset search
+        document.getElementById('resetSearchBtn').addEventListener('click', function () {
+            document.getElementById('searchInput').value = '';
+            renderFactories(factories);
+
+            // Reset category selection
+            document.querySelectorAll('.categories-sidebar .nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            document.querySelector('.categories-sidebar .nav-link[data-category="all"]').classList.add('active');
+        });
+
+        // Filter factories based on search term
+        function filterFactories(searchTerm) {
+            const filteredFactories = factories.filter(factory => {
+                return (
+                    factory.name.toLowerCase().includes(searchTerm) ||
+                    factory.location.toLowerCase().includes(searchTerm) ||
+                    factory.description.toLowerCase().includes(searchTerm) ||
+                    getCategoryName(factory.category).toLowerCase().includes(searchTerm)
+                );
+            });
+
+            renderFactories(filteredFactories);
+        }
+</script>
+<script>
+    // Categories data (to be fetched from the database in the future)
+    const categories = [
+        { id: 1, name: "Classic Furniture", image: "assets/ClassicFurniture.jpg", factoriesCount: 12 },
+        { id: 2, name: "Children's Furniture", image: "assets/Childern'sFurniture.jpg", factoriesCount: 8 },
+        { id: 3, name: "Commercial Furniture", image: "assets/CommercialFurniture.jpg", factoriesCount: 15 },
+        { id: 4, name: "Glass Furniture", image: "assets/GlassFurniture.jpg", factoriesCount: 20 },
+        { id: 4, name: "Upholstery", image: "assets/Upholstery.jpg", factoriesCount: 20 },
+        { id: 4, name: "Luxury Funiture", image: "assets/LuxuryFuniture.jpg", factoriesCount: 20 }
+
+
+    ];
+
+    // Function to render categories
+    function renderCategories() {
+        const container = document.getElementById("categoriesContainer");
+        container.innerHTML = ""; // Clear container
+        
+        categories.forEach(category => {
+            const categoryCard = `
+                <div class="col-md-3">
+                    <div class="card shadow-sm border-0" style="cursor: pointer;" onclick="redirectToFactories()">
+                        <img src="${category.image}" class="card-img-top" style="height: 200px; object-fit: cover;" alt="${category.name}">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">${category.name}</h5>
+                            <p class="text-muted">${category.factoriesCount} Factories</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+            container.innerHTML += categoryCard;
+        });
+    }
+ // Function to redirect to factories page
+ function redirectToFactories(categoryId) {
+            window.location.href = `factories.html`;
+        }
+
+    // Render categories on page load
+    document.addEventListener("DOMContentLoaded", renderCategories);
+</script>
+
+</body>
+
+</html>

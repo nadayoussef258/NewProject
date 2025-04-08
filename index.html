@@ -10,13 +10,48 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
 
     <!-- Font Awesome for icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=SUSE:wght@100..800&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: "DM Sans", sans-serif;
         }
 
-       /* navbar */
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #ff4757;
+            color: white;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 99;
+        }
+
+        .back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background-color: #ff6b81;
+            transform: translateY(-3px);
+        }
+
+        /* navbar */
         .navbar-custom {
             background-color: white;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -46,7 +81,7 @@
             color: white;
             border: none;
         }
-/* Hero Section */
+        /* Hero Section */
         .hero-section {
             background-image: url('assets/bg-1.jpg');
             /* background: linear-gradient(to right, #f5f7fa, #c3cfe2); */
@@ -79,6 +114,18 @@
             background-color: #f8f9fa;
         }
 
+        /* Enhanced media query to hide categories sidebar on mobile devices */
+        @media (max-width: 991.98px) { /* Increased breakpoint to hide earlier */
+            .categories-sidebar {
+                display: none !important; /* Added !important to ensure it's hidden */
+            }
+            
+            /* Adjust the hero content to take full width on mobile */
+            .hero-section .col-md-10 {
+                width: 100% !important;
+            }
+        }
+
         .start-shopping-btn {
             background-color: #ff4757;
             color: white;
@@ -88,30 +135,6 @@
         .start-shopping-btn:hover {
             background-color: #ff6b81;
         }
-
-
-        .sale-banner {
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .sale-banner-light {
-            background-color: #f5f5f5;
-        }
-
-        .sale-banner-dark {
-            background-color: #333;
-            color: white;
-        }
-
-        .sale-banner img {
-            max-height: 200px;
-        }
-
         .product-tabs {
             margin-bottom: 20px;
             border-bottom: 1px solid #e0e0e0;
@@ -172,7 +195,21 @@
             background-color: #f8f9fa;
             padding: 50px 0;
         }
-
+        
+        /* Structure for brands section with proper stacking - no gaps */
+        .brands-row {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .brands-col {
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
+        
         .new-brands-content {
             background-color: black;
             color: white;
@@ -181,18 +218,53 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
+            width: 100%;
+            margin: 0;
+            border-right: 0;
         }
 
         .new-brands-image {
             background-color: #030303;
-            height: 493px;
+            height: 100%;
             position: relative;
+            width: 100%;
+            display: flex; /* Use flexbox for better sizing control */
         }
 
         .new-brands-image img {
             width: 100%;
-            height: 100%;
-            object-fit: cover;
+            height: 100%; /* Take full height */
+            object-fit: cover; /* Ensures image covers the area without distortion */
+            object-position: center; /* Centers the image */
+            min-height: 493px; /* Minimum height on larger screens */
+        }
+        
+        /* Mobile specific adjustments */
+        @media (max-width: 767.98px) {
+            .brands-col:first-child {
+                margin-bottom: 0;
+            }
+            
+            .brands-col:last-child {
+                margin-top: 0;
+            }
+            
+            .new-brands-image {
+                height: auto;
+            }
+            
+            .new-brands-image img {
+                min-height: 300px; /* Smaller minimum height on mobile */
+                height: 100%;
+            }
+        }
+        
+        /* Ensure image container maintains aspect ratio */
+        @media (min-width: 768px) {
+            .brands-col:last-child {
+                display: flex;
+                align-items: stretch;
+            }
         }
       
 
@@ -262,6 +334,12 @@
             color: white;
             padding: 5px 10px;
             border-radius: 5px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .featured-product-card:hover .sale-badge {
+            opacity: 1;
         }
 
         .product-price-original {
@@ -379,6 +457,20 @@
             background-color: white;
             padding: 20px;
             border-radius: 10px;
+            height: 100%; /* Make all cards the same height */
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* Add a wrapper to maintain equal height row */
+        .product-lists .row {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        
+        .product-lists .col-md-4 {
+            display: flex;
+            margin-bottom: 20px; /* Add space between cards in mobile view */
         }
 
         .product-list-item {
@@ -441,22 +533,97 @@
         .footerOne {
             background-color: rgb(231, 231, 231);
         }
+
+        #page-loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s, visibility 0.3s;
+}
+
+#page-loader.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+#page-loader img {
+  width: 150px; /* حجم الصورة الصغيرة - يمكن تعديله حسب الحاجة */
+  height: auto; /* للحفاظ على تناسب الصورة */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 40%;
+}
+
+.add-to-cart-btn {
+            display: inline-block;
+            padding: 10px 25px;
+            background-color: #ff4757;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            text-align: center;
+            height: 45px;
+        }
+
+        .add-to-cart-btn:hover {
+            background-color: #ff6b81;
+        }
+
+        /* Store Features Styles */
+        .robotic-arm-container {
+            background-color: #f2f8fc;
+            text-align: center;
+            padding: 20px 0;
+            overflow: hidden;
+        }
+
+        .robotic-arm-container img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        @media (max-width: 767.98px) {
+            .robotic-arm-container img {
+                max-width: 100%;
+            }
+        }
+
     </style>
 </head>
 
 <body>
  
-
+    <div id="page-loader">
+        <img src="assets/icon-02-02.png" alt="Loading...">
+      </div>
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light navbar-custom">
         <div class="container">
             <!-- Logo -->
             <a class="navbar-brand" href="#">
-                <img src="assets/logo.png" alt="Envo One Logo" style="width: 65px;">
+                <img src="assets/logo.png" alt="Logo" style="width: 80px;">
             </a>
 
+            <!-- Mobile Toggle Button -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
             <!-- Navigation Links -->
-            <div class="collapse navbar-collapse">
+            <div class="collapse navbar-collapse" id="navbarContent">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item ">
                         <a class="nav-link " href="index.html">HOME</a>
@@ -475,33 +642,14 @@
                         <a class="nav-link text-danger" href="Blogs.html">Blogs</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-danger" href="AboutUs.html">Contact Us</a>
+                        <a class="nav-link text-danger" href="ContactUs.html">Contact Us</a>
                     </li>
                 </ul>
             </div>
 
             <!-- Right Icons -->
             <div class="navbar-nav flex-row">
-                <div class="search-container">
-                    
-                    <form class="d-flex ">
-                        <input class="form-control me-2" type="search" placeholder="Search products..."
-                            aria-label="Search">
-
-                        <button class="btn btn-search" type="submit"><i class="fas fa-search"></i></button>
-                    </form>
-                </div>
-<!-- 
-                <div class="nav-item me-3">
-                    <a href="#" class="nav-link"><i class="far fa-heart"></i></a>
-                </div> -->
-                <div class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="fas fa-shopping-cart"></i>
-                        <span class="badge bg-danger">0</span>
-                        $0.00
-                    </a>
-                </div>
+                <!-- Removed search-container and cart-icon as requested -->
             </div>
         </div>
     </nav>
@@ -513,15 +661,11 @@
                 <!-- Categories Sidebar -->
                 <div class="col-md-2 categories-sidebar">
                     <div class="nav flex-column">
-                        <a class="nav-link" href="#"><i class="fas fa-tag me-2"></i> Summer Sale</a>
-                        <a class="nav-link" href="#"><i class="fas fa-box me-2"></i> New Products</a>
-                        <!-- <a class="nav-link" href="#"><i class="fas fa-dumbbell me-2"></i> Fitness Accessories</a> -->
-                        <a class="nav-link" href="#"><i class="fas fa-percent me-2"></i> On Sale - 50% Off</a>
-                        <a class="nav-link" href="#"><i class="fas fa-puzzle-piece me-2"></i> Categories</a>
-                        <a class="nav-link" href="#"><i class="fas fa-shoe-prints me-2"></i> Factories</a>
-                        <a class="nav-link" href="#"><i class="fas fa-snowflake me-2"></i> Blogs </a>
-                        <a class="nav-link" href="#"><i class="fas fa-shopping-bag me-2"></i> Contact US</a>
-                        <a class="nav-link" href="#"><i class="fas fa-mountain me-2"></i> Featured Products</a>
+                        <a class="nav-link" href="Products.html"><i class="fas fa-box me-2"></i> New Products</a>
+                        <a class="nav-link" href="Categories.html"><i class="fas fa-puzzle-piece me-2"></i> Categories</a>
+                        <a class="nav-link" href="factories.html"><i class="fas fa-shoe-prints me-2"></i> Factories</a>
+                        <a class="nav-link" href="Blogs.html"><i class="fas fa-snowflake me-2"></i> Blogs </a>
+                        <a class="nav-link" href="ContactUs.html"><i class="fas fa-shopping-bag me-2"></i> Contact US</a>
                     </div>
                 </div>
 
@@ -531,88 +675,12 @@
                         <div class="col-md-6 hero-content">
                             <p class="text-white">WELCOME TO OUR COMPANY</p>
                             <h1 class="display-4 text-white">BIG SEASON SALE</h1>
-                            <button class="btn start-shopping-btn btn-lg mt-3">START SHOPPING</button>
+                            <button class="btn start-shopping-btn btn-lg mt-3"><a href="Products.html" style="text-decoration: none; color: white;">START SHOPPING</a></button>
                         </div>
                       
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-
-
-    <!-- Sale Banners Section -->
-    <div class="container mt-4">
-        <div class="featured-products-title">
-            <h2>Featured Factories</h2>
-            <hr>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="sale-banner sale-banner-light">
-                    <div>
-                        <h4>Childern's Furniture</h4>
-                        <!-- <h3>1 Factory</h3> -->
-                        <a href="#" class="btn btn-secondary mt-3">View</a>
-                    </div>
-                    <img src="/assets/Childern'sFurniture.jpg" alt="Drone" class="img-fluid">
-                </div>
-            </div>
-
-            <div class="col-md-6">
-                <div class="sale-banner sale-banner-dark">
-                    <div>
-                        <h4>Classic Furniture</h4>
-                        <!-- <h3>1 Factory</h3> -->
-                        <a href="#" class="btn btn-light mt-3">VIEW </a>
-                    </div>
-                    <img src="/assets/ClassicFurniture.jpg" alt="VR Headset" class="img-fluid">
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="sale-banner sale-banner-dark">
-                    <div>
-                        <h4>Commercial Furniture</h4>
-                        <!-- <h3>2 Factories</h3> -->
-                        <a href="#" class="btn btn-light mt-3">VIEW </a>
-                    </div>
-                    <img src="/assets/CommercialFurniture.jpg" alt="VR Headset" class="img-fluid">
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="sale-banner sale-banner-light">
-                    <div>
-                        <h4>Luxury Funiture</h4>
-                        <!-- <h3>2 Factories</h3> -->
-                        <a href="#" class="btn btn-light mt-3">VIEW </a>
-                    </div>
-                    <img src="/assets/LuxuryFuniture.jpg" alt="VR Headset" class="img-fluid">
-                </div>
-            </div>
-
-            <div class="col-md-6">
-                <div class="sale-banner sale-banner-light">
-                    <div>
-                        <h4>Upholstery</h4>
-                        <!-- <h3>1 Factory</h3> -->
-                        <a href="#" class="btn btn-light mt-3">VIEW </a>
-                    </div>
-                    <img src="/assets/Upholstery.jpg" alt="VR Headset" class="img-fluid">
-                </div>
-            </div>
-
-            <div class="col-md-6">
-                <div class="sale-banner sale-banner-dark">
-                    <div>
-                        <h4>Glass Furniture</h4>
-                        <!-- <h3>1 Factory</h3> -->
-                        <a href="#" class="btn btn-light mt-3">VIEW </a>
-                    </div>
-                    <img src="/assets/GlassFurniture.jpg" alt="VR Headset" class="img-fluid">
-                </div>
-            </div>
-
-
         </div>
     </div>
 
@@ -625,9 +693,6 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#featured" data-bs-toggle="tab">FEATURED</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#sale" data-bs-toggle="tab">SALE</a>
                 </li>
             </ul>
         </div>
@@ -767,29 +832,33 @@
 
     <!-- New Brands Section -->
     <section class="new-brands-section">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-6 new-brands-content col-sm-12">
-                    <h2 class="display-5">Fresh Meals, Trusted Brands</h2>
-                    <p class="mt-3">
-                        Discover a world of delicious, high-quality meals crafted by top manufacturers and brands.<br>
-                        Our latest selection brings you freshly prepared meals, premium ingredients,<br> and innovative
-                        food solutions—perfect for busy lifestyles and gourmet tastes alike.
+        <div class="container-fluid p-0">
+            <div class="row brands-row">
+                <div class="col-md-6 col-sm-12 brands-col">
+                    <div class="new-brands-content">
+                        <h2 class="display-5">Fresh Meals, Trusted Brands</h2>
+                        <p class="mt-3">
+                            Discover a world of delicious, high-quality meals crafted by top manufacturers and brands.<br>
+                            Our latest selection brings you freshly prepared meals, premium ingredients,<br> and innovative
+                            food solutions—perfect for busy lifestyles and gourmet tastes alike.
 
-                        From ready-to-eat dishes to custom-made meal kits, <br> our new arrivals ensure convenience,
-                        nutrition, and unbeatable flavor in every bite. <br>
-                        Whether you're craving a hearty meal, a healthy option, or a quick snack, we've got something to
-                        satisfy every appetite <br>
-                    </p>
-                    <p>
-                        Top-rated brands delivering excellence. <br>
-                        Handpicked meals made with fresh, quality ingredients. <br>
-                        Convenience meets taste—just heat and enjoy!
-                    </p>
-                    <button class="btn shop-now-btn">SHOP NOW</button>
+                            From ready-to-eat dishes to custom-made meal kits, <br> our new arrivals ensure convenience,
+                            nutrition, and unbeatable flavor in every bite. <br>
+                            Whether you're craving a hearty meal, a healthy option, or a quick snack, we've got something to
+                            satisfy every appetite <br>
+                        </p>
+                        <p>
+                            Top-rated brands delivering excellence. <br>
+                            Handpicked meals made with fresh, quality ingredients. <br>
+                            Convenience meets taste—just heat and enjoy!
+                        </p>
+                        <button class="btn shop-now-btn">SHOP NOW</button>
+                    </div>
                 </div>
-                <div class="col-md-6 new-brands-image col-sm-12">
-                    <img src="/assets/Upholstery.jpg" alt="Tech Innovation Dashboard" class="img-fluid" style="height: 493px;">
+                <div class="col-md-6 col-sm-12 brands-col">
+                    <div class="new-brands-image">
+                        <img src="/assets/Upholstery.jpg" alt="Tech Innovation Dashboard" class="img-fluid">
+                    </div>
                 </div>
             </div>
         </div>
@@ -950,25 +1019,14 @@
 
     <!-- Store Features -->
     <section class="store-features container">
-        <div class="row">
-            <div class="col-md-4 store-feature-item">
-                <i class="fas fa-paper-plane"></i>
-                <h5>Free Shipping</h5>
-                <p>Enjoy fast and free delivery on all your orders! No hidden fees—just seamless shopping and doorstep convenience.</p>
-            </div>
-            <div class="col-md-4 store-feature-item">
-                <i class="fas fa-star"></i>
-                <h5>5 Star Rating</h5>
-                <p>Our customers love us! Top-rated products and exceptional quality ensure a shopping experience you can trust.</p>
-            </div>
-            <div class="col-md-4 store-feature-item">
-                <i class="fas fa-headset"></i>
-                <h5>24/7 Support</h5>
-                <p>Got a question? We’re here for you day and night! Our expert support team is ready to assist you anytime.</p>
-            </div>
-        </div>
-    </section>
+   
 
+        <div class="robotic-arm-container">
+            <img src="assets/masanaco.jpg" class="img-fluid" alt="Robotic arm illustration">
+        </div>
+
+    </section>
+   
     <!-- Product Lists -->
     <section class="product-lists ">
         <div class="container">
@@ -1090,7 +1148,6 @@
                         <p><strong>Phone:</strong> <a href="tel:+971501234567" class="text-dark fw-bold">+971501234567</a></p>
                         <div class="social-icons mt-3">
                             <a href="#" class="text-dark me-2"><i class="fab fa-facebook"></i></a>
-                            <a href="#" class="text-dark me-2"><i class="fab fa-x-twitter"></i></a>
                             <a href="#" class="text-dark me-2"><i class="fab fa-instagram"></i></a>
                             <a href="#" class="text-dark me-2"><i class="fab fa-tiktok"></i></a>
                             <a href="#" class="text-dark"><i class="fab fa-pinterest"></i></a>
@@ -1122,16 +1179,79 @@
     
     
     <div class="text-center bg-dark p-4 text-white">
-        <p class="mb-0">© 2025 Nano Technical Solution All Rights Reserved.</p>
+        <p class="mb-0"> 2025 Nano Technical Solution All Rights Reserved.</p>
     </div>
 
-    <!-- Rest of the previous content remains the same -->
-    <!-- ... -->
+    <!-- Back to Top Button -->
+    <a href="#" class="back-to-top" aria-label="Scroll to top">
+        <i class="fas fa-arrow-up"></i>
+    </a>
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <!-- Bootstrap JS - using only one version to prevent conflicts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+  // Show loader when clicking on links that navigate to another page
+  document.querySelectorAll('a').forEach(link => {
+    // Skip links that open in new tabs or are anchors
+    if (link.getAttribute('target') === '_blank' || (link.getAttribute('href') && link.getAttribute('href').startsWith('#'))) {
+      return;
+    }
+    
+    link.addEventListener('click', function(e) {
+      // Don't show loader for back-to-top button
+      if (this.classList.contains('back-to-top')) {
+        return;
+      }
+      
+      // Don't show loader for external links
+      if (this.hostname !== window.location.hostname) {
+        return;
+      }
+      
+      e.preventDefault();
+      const href = this.getAttribute('href');
+      
+      // Show loader
+      document.getElementById('page-loader').classList.add('active');
+      
+      // Navigate after a short delay
+      setTimeout(function() {
+        window.location.href = href;
+      }, 300); // Small delay to ensure loader is visible
+    });
+  });
+  
+  // Hide loader when page has loaded
+  window.addEventListener('load', function() {
+    document.getElementById('page-loader').classList.remove('active');
+  });
 
+  // Back to top button functionality
+  const backToTopButton = document.querySelector('.back-to-top');
+  
+  // Show button when user scrolls down 300px from the top
+  window.addEventListener('scroll', function() {
+    if (window.pageYOffset > 300) {
+      backToTopButton.classList.add('show');
+    } else {
+      backToTopButton.classList.remove('show');
+    }
+  });
+  
+  // Scroll to top when button is clicked
+  backToTopButton.addEventListener('click', function(e) {
+    e.preventDefault();
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  });
+  
+});
+
+</script>
 </body>
 
 </html>

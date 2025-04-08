@@ -1,49 +1,357 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>سلة التسوق</title>
+    <title>Shopping Cart</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .cart-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .cart-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        .cart-item img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            margin-right: 15px;
+        }
+        .item-details {
+            flex-grow: 1;
+        }
+        .item-price {
+            font-weight: bold;
+            margin-right: 20px;
+        }
+        .item-quantity {
+            display: flex;
+            align-items: center;
+        }
+        .quantity-btn {
+            background: none;
+            border: 1px solid #ddd;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        .quantity-input {
+            width: 50px;
+            text-align: center;
+            margin: 0 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 5px;
+        }
+        .remove-item {
+            color: #dc3545;
+            cursor: pointer;
+            background: none;
+            border: none;
+            margin-left: 15px;
+        }
+        .cart-summary {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+        }
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+        .checkout-btn {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            width: 100%;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .checkout-btn:hover {
+            background-color: #45a049;
+        }
+        .empty-cart {
+            text-align: center;
+            padding: 40px 0;
+        }
+        .navbar {
+            margin-bottom: 30px;
+        }
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #ff4757;
+            color: white;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 99;
+        }
 
-    <!-- إضافة Font Awesome للأيقونات -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+        .back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background-color: #ff6b81;
+            transform: translateY(-3px);
+        }
+    </style>
 </head>
-<body >
-    <!-- شريط التنقل الخاص بك -->
-    <header>
-        <!-- ... محتوى الهيدر ... -->
-        <div class="cart-icon">
-            <i class="fas fa-shopping-cart"></i>
-            <span class="cart-counter hidden">0</span>
-        </div>
-    </header>
-
-    <main>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
-            <h1>سلة التسوق</h1>
-            
-            <div class="cart-container">
-                <div id="cart-items" class="cart-items">
-                    <!-- سيتم ملء هذا القسم ديناميكياً بواسطة JavaScript -->
-                </div>
-                
-                <div id="cart-summary" class="cart-summary">
-                    <!-- سيتم ملء هذا القسم ديناميكياً بواسطة JavaScript -->
-                </div>
+            <a class="navbar-brand" href="index.html">Your Store</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="products.html">Products</a>
+                    </li>
+                </ul>
+                <!-- Only keeping cart icon for cart page, removed search container as requested -->
+                <div class="nav-item me-3" id="cart-icon">
+                  <a class="nav-link position-relative" href="cart.html" style="cursor: pointer;">
+                      <i class="fas fa-shopping-cart"></i>
+                      <span class="cart-count" id="cart-count">0</span>
+                  </a>
+              </div>
             </div>
         </div>
-    </main>
+    </nav>
 
-    <footer>
-        <!-- ... محتوى الفوتر ... -->
-    </footer>
-
-    <!-- نموذج تسجيل الدخول -->
-    <div id="login-modal" class="modal hidden">
-        <!-- ... محتوى النموذج (من الكود الذي قدمته) ... -->
+    <div class="container">
+        <div class="cart-container">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h2>Shopping Cart</h2>
+                <a href="index.html" class="btn btn-outline-secondary">
+                    <i class="fas fa-arrow-left me-2"></i> Continue Shopping
+                </a>
+            </div>
+            
+            <div id="cart-items">
+                <!-- Cart items will be loaded here -->
+            </div>
+            
+            <div id="empty-cart-message" class="empty-cart" style="display: none;">
+                <div class="text-center">
+                    <i class="fas fa-shopping-cart fa-3x mb-3 text-muted"></i>
+                    <h4>Your cart is empty</h4>
+                    <p>Looks like you haven't added any items to your cart yet.</p>
+                    <a href="products.html" class="btn btn-primary mt-3">Browse Products</a>
+                </div>
+            </div>
+            
+            <div id="cart-summary" class="cart-summary" style="display: none;">
+                <div class="cart-total">
+                    <span class="fw-bold">Total:</span>
+                    <span id="cart-total-amount">$0.00</span>
+                </div>
+                <button id="checkout-btn" class="checkout-btn">Proceed to Checkout</button>
+            </div>
+        </div>
     </div>
 
-    <!-- تضمين ملفات JavaScript -->
-    <script src="cart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            displayCartItems();
+            
+            // Event delegation for quantity changes and item removal
+            document.getElementById('cart-items').addEventListener('click', function(event) {
+                if (event.target.classList.contains('quantity-btn')) {
+                    const itemId = event.target.closest('.cart-item').dataset.id;
+                    const isIncrease = event.target.classList.contains('increase');
+                    updateQuantity(itemId, isIncrease);
+                }
+                
+                if (event.target.classList.contains('remove-item') || event.target.parentElement.classList.contains('remove-item')) {
+                    const itemId = event.target.closest('.cart-item').dataset.id;
+                    removeFromCart(itemId);
+                }
+            });
+            
+            // Event delegation for quantity input changes
+            document.getElementById('cart-items').addEventListener('change', function(event) {
+                if (event.target.classList.contains('quantity-input')) {
+                    const itemId = event.target.closest('.cart-item').dataset.id;
+                    const newQuantity = parseInt(event.target.value);
+                    if (newQuantity > 0) {
+                        setQuantity(itemId, newQuantity);
+                    } else {
+                        removeFromCart(itemId);
+                    }
+                }
+            });
+            
+            // Checkout button
+            document.getElementById('checkout-btn').addEventListener('click', function() {
+                // Redirect to checkout page or process checkout
+                alert('Proceeding to checkout...');
+                // window.location.href = 'checkout.html';
+            });
+            
+            // Back to top button functionality
+            const backToTopButton = document.querySelector('.back-to-top');
+            
+            // Show button when user scrolls down 300px from the top
+            window.addEventListener('scroll', function() {
+                if (window.pageYOffset > 300) {
+                    backToTopButton.classList.add('show');
+                } else {
+                    backToTopButton.classList.remove('show');
+                }
+            });
+            
+            // Scroll to top when button is clicked
+            backToTopButton.addEventListener('click', function(e) {
+                e.preventDefault();
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        function displayCartItems() {
+            const cartItems = getCartItems();
+            const cartItemsContainer = document.getElementById('cart-items');
+            const emptyCartMessage = document.getElementById('empty-cart-message');
+            const cartSummary = document.getElementById('cart-summary');
+            
+            // Update cart count in navbar
+            document.getElementById('cart-count').textContent = cartItems.reduce((total, item) => total + item.quantity, 0);
+            
+            if (cartItems.length === 0) {
+                cartItemsContainer.innerHTML = '';
+                emptyCartMessage.style.display = 'block';
+                cartSummary.style.display = 'none';
+                return;
+            }
+            
+            emptyCartMessage.style.display = 'none';
+            cartSummary.style.display = 'block';
+            
+            cartItemsContainer.innerHTML = '';
+            let total = 0;
+            
+            cartItems.forEach(item => {
+                const itemTotal = item.price * item.quantity;
+                total += itemTotal;
+                
+                const cartItemElement = document.createElement('div');
+                cartItemElement.className = 'cart-item';
+                cartItemElement.dataset.id = item.id;
+                cartItemElement.innerHTML = `
+                    <img src="${item.image || '/api/placeholder/80/80'}" alt="${item.name}">
+                    <div class="item-details">
+                        <h5>${item.name}</h5>
+                        <p class="text-muted">${item.description || ''}</p>
+                    </div>
+                    <div class="item-price">$${item.price.toFixed(2)}</div>
+                    <div class="item-quantity">
+                        <button class="quantity-btn decrease">-</button>
+                        <input type="number" class="quantity-input" value="${item.quantity}" min="1">
+                        <button class="quantity-btn increase">+</button>
+                    </div>
+                    <button class="remove-item">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                `;
+                
+                cartItemsContainer.appendChild(cartItemElement);
+            });
+            
+            document.getElementById('cart-total-amount').textContent = `$${total.toFixed(2)}`;
+        }
+        
+        function getCartItems() {
+            const cartItems = localStorage.getItem('cartItems');
+            return cartItems ? JSON.parse(cartItems) : [];
+        }
+        
+        function saveCartItems(items) {
+            localStorage.setItem('cartItems', JSON.stringify(items));
+        }
+        
+        function updateQuantity(itemId, isIncrease) {
+            const cartItems = getCartItems();
+            const itemIndex = cartItems.findIndex(item => item.id === itemId);
+            
+            if (itemIndex !== -1) {
+                if (isIncrease) {
+                    cartItems[itemIndex].quantity += 1;
+                } else {
+                    cartItems[itemIndex].quantity -= 1;
+                    
+                    if (cartItems[itemIndex].quantity <= 0) {
+                        cartItems.splice(itemIndex, 1);
+                    }
+                }
+                
+                saveCartItems(cartItems);
+                displayCartItems();
+            }
+        }
+        
+        function setQuantity(itemId, quantity) {
+            const cartItems = getCartItems();
+            const itemIndex = cartItems.findIndex(item => item.id === itemId);
+            
+            if (itemIndex !== -1) {
+                cartItems[itemIndex].quantity = quantity;
+                saveCartItems(cartItems);
+                displayCartItems();
+            }
+        }
+        
+        function removeFromCart(itemId) {
+            let cartItems = getCartItems();
+            cartItems = cartItems.filter(item => item.id !== itemId);
+            saveCartItems(cartItems);
+            displayCartItems();
+        }
+    </script>
+
+    <!-- Back to Top Button -->
+    <a href="#" class="back-to-top" aria-label="Scroll to top">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+    
 </body>
 </html>
